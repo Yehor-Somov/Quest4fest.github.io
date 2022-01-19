@@ -1,0 +1,197 @@
+@font-face {
+  font-family: "Inter";
+  src: url(fonts/Inter-VariableFont_slnt\wght.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  --main-blue: #1646ff;
+  --main-yellow: #e5fb6d;
+  --main-white: #faf9fa;
+  --main-black: #14141e;
+}
+
+html {
+  font-family: "Inter";
+  font-size: 18px;
+}
+
+body {
+  background: #e5e5e5;
+  padding: 0 70px 30px;
+}
+
+/* --------Input styles-------- */
+
+input {
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border: 1.5px solid gray;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+input::placeholder {
+  color: #14141e80;
+  font-weight: 600;
+}
+
+input:invalid {
+  border-width: 3px;
+  border-color: red;
+}
+
+/* --------Other styles-------- */
+
+header {
+  padding: 30px 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.userArea {
+  background: var(--main-white);
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-sizing: border-box;
+}
+
+.rules {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25.2px;
+  margin-bottom: 25px;
+}
+
+.rules ul {
+  margin-left: 40px;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.commands {
+  margin-bottom: 40px;
+}
+
+.instruction {
+  margin-top: 15px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(10px, 11fr) 143px 19px;
+}
+
+.del {
+  width: 19px;
+  height: 19px;
+  background-image: url("del_button.svg");
+  background-size: cover;
+  background-position: center center;
+  justify-self: center;
+  align-self: center;
+}
+
+.del:hover {
+  background-image: url("del_button_hover.svg");
+  cursor: pointer;
+}
+
+.edits {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(10px, 11fr) 143px 19px;
+}
+
+.addCommands {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addCommands p {
+  font-size: 18px;
+  color: var(--main-black);
+  opacity: 0.8;
+}
+
+.localContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edits img {
+  width: 62px;
+}
+
+#add {
+  width: 30px;
+  margin-left: 14px;
+}
+
+#add:hover {
+  cursor: pointer;
+}
+
+#startButton {
+  width: 143px;
+  height: 50px;
+  border-radius: none;
+  background: url("go_button.svg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-white);
+  font-size: 19px;
+  font-weight: 600;
+}
+
+#startButton:hover {
+  cursor: pointer;
+  background: url("go_button_hover.svg");
+  color: var(--main-black);
+}
+
+main {
+  background: var(--main-white);
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  border-radius: 10px;
+  align-self: flex-end;
+}
+
+canvas {
+  border-radius: 6px;
+}
+
+footer {
+  background: var(--main-white);
+  height: 50px;
+  border-radius: 10px;
+  padding: 10px 30px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+footer > a {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.socials {
+  width: 20vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
