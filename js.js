@@ -1,4 +1,5 @@
 let variant = Math.floor(Math.random() * 5 + 1);
+//variant = 5;
 
 isValid = true;
 
@@ -6,11 +7,16 @@ let gridStep;
 
 let startButton = document.querySelector("#startButton");
 
-let w = window.innerWidth / 2.4 + 40;
-document.querySelector(".userArea").style.width = w + "px";
+let w;
+if (window.innerWidth > 800) {
+  w = window.innerWidth / 2.4 + 40;
+  document.querySelector(".userArea").style.width = w + "px";
+}
 
 let userWay = [];
 let userWays = [];
+
+let rightWay = true;
 
 let img;
 
@@ -181,16 +187,25 @@ mainWay.push(way5);
 let checkIndex = 0;
 
 function preload() {
-  img = loadImage("Quant-Right.png");
-  game_map = loadImage(`maps/${variant}.svg`);
-  Inter = loadFont("Inter.ttf");
+  //img = loadImage("images/Quant/Quant-Right.png");
+  game_map = loadImage(`images/maps/${variant}.svg`);
+  Inter = loadFont("fonts/Inter.ttf");
+  imgRight = loadImage("images/Quant/Quant-Right.png");
+  imgLeft = loadImage("images/Quant/Quant-Left.png");
+  imgDown = loadImage("images/Quant/Quant-Down.png");
+  imgUp = loadImage("images/Quant/Quant-Up.png");
+  img = imgRight;
 }
 
 function setup() {
-  createCanvas(window.innerWidth / 2.4, window.innerWidth / 2.4);
+  if (innerWidth > 800) {
+    createCanvas(window.innerWidth / 2.4, window.innerWidth / 2.4);
+  } else {
+    createCanvas(window.innerWidth / 1.2, window.innerWidth / 1.2);
+  }
 
   imageMode(CENTER);
-  img.resize(width / 15, 0);
+  img.resize(width / 15, width / 15);
   game_map.resize(width, 0);
 
   gridStep = width / 20;
@@ -208,27 +223,29 @@ function draw() {
   if (state == 1) {
     background(220);
     image(game_map, width / 2, height / 2);
-    img.resize(width / 15, 0);
+    grid();
+    img.resize(width / 15, width / 15);
     image(img, playerX, playerY);
     gridStep = width / 20;
   } else if (state == 2) {
     background(220);
     image(game_map, width / 2, height / 2);
-    img.resize(width / 15, 0);
+    grid();
+    img.resize(width / 15, width / 15);
     image(img, playerX, playerY);
     gridStep = width / 20;
 
     if (userWays[0][i] == "turnDown") {
-      img = loadImage("Quant-Down.png");
+      img = imgDown;
       checkRightWay();
     } else if (userWays[0][i] == "turnUp") {
-      img = loadImage("Quant-Up.png");
+      img = imgUp;
       checkRightWay();
     } else if (userWays[0][i] == "turnRight") {
-      img = loadImage("Quant-Right.png");
+      img = imgRight;
       checkRightWay();
     } else if (userWays[0][i] == "turnLeft") {
-      img = loadImage("Quant-Left.png");
+      img = imgLeft;
       checkRightWay();
     } else {
       playerX = +userWays[0][i];
@@ -237,17 +254,24 @@ function draw() {
     i++;
 
     if (i > userWays[0].length) {
-      if (userWay != mainWay[variant - 1]) {
+      // console.log(userWay);
+      // console.log(mainWay[variant - 1]);
+      if (!rightWay) {
         isValid = false;
         state = 3;
       } else {
+        isValid = false;
         state = 4;
+        setTimeout(() => {
+          document.location.href = "https://robocode.ua/fest-ua";
+        }, 3000);
       }
     }
   } else if (state == 3) {
     background(220);
     image(game_map, width / 2, height / 2);
-    img.resize(width / 15, 0);
+    grid();
+    img.resize(width / 15, width / 15);
     image(img, playerX, playerY);
     gridStep = width / 20;
     noStroke();
@@ -266,8 +290,17 @@ function draw() {
     text("RESET", width / 2, height / 2 + 8);
 
     if (
-      mouseX > width / 2 - 50 &&
-      mouseX < width / 2 - 50 + 100 &&
+      mouseX > width / 2 - 100 &&
+      mouseX < width / 2 - 100 + 200 &&
+      mouseY > height / 2 - 25 &&
+      mouseY < height / 2 - 25 + 50
+    ) {
+      document.querySelector("canvas").style.cursor = "pointer";
+    } else document.querySelector("canvas").style.cursor = "default";
+
+    if (
+      mouseX > width / 2 - 100 &&
+      mouseX < width / 2 - 100 + 200 &&
       mouseY > height / 2 - 25 &&
       mouseY < height / 2 - 25 + 50 &&
       mouseIsPressed
@@ -277,11 +310,11 @@ function draw() {
   } else if (state == 4) {
     background(220);
     image(game_map, width / 2, height / 2);
-    img.resize(width / 15, 0);
+    img.resize(width / 15, width / 15);
     image(img, playerX, playerY);
     gridStep = width / 20;
     noStroke();
-    fill("rgba(0,0,0, 0.7)");
+    fill("rgba(0, 0, 0, 0.7)");
     rect(0, 0, width, height);
     textSize(32);
     textFont(Inter);
@@ -290,42 +323,71 @@ function draw() {
     text("Молодець, ти впорався!", width / 2, height / 2 - 150);
 
     textSize(20);
-    text("Якщо хочеш спробувати ще раз з", width / 2, height / 2 - 80);
-    text("іншою мапою, натисни на кнопку", width / 2, height / 2 - 50);
+    text("А тепер дивись, що відбудеться :)", width / 2, height / 2 - 80);
+    //text("з інформацією про фест", width / 2, height / 2 - 50);
 
-    rect(width / 2 - 100, height / 2 - 25, 200, 50, 20);
+    //rect(width / 2 - 100, height / 2 - 25, 200, 50, 20);
 
-    textSize(24);
-    fill("rgb(0,0,0)");
-    text("RESET", width / 2, height / 2 + 8);
+    //textSize(24);
+    //fill("rgb(0,0,0)");
+    //text("Про Фест", width / 2, height / 2 + 8);
 
-    if (
-      mouseX > width / 2 - 50 &&
-      mouseX < width / 2 - 50 + 100 &&
-      mouseY > height / 2 - 25 &&
-      mouseY < height / 2 - 25 + 50 &&
-      mouseIsPressed
-    ) {
-      location.reload();
-    }
+    // if (
+    //   mouseX > width / 2 - 100 &&
+    //   mouseX < width / 2 - 100 + 200 &&
+    //   mouseY > height / 2 - 25 &&
+    //   mouseY < height / 2 - 25 + 50
+    // ) {
+    //   document.querySelector("canvas").style.cursor = "pointer";
+    // } else document.querySelector("canvas").style.cursor = "default";
+
+    // if (
+    //   mouseX > width / 2 - 100 &&
+    //   mouseX < width / 2 - 100 + 200 &&
+    //   mouseY > height / 2 - 25 &&
+    //   mouseY < height / 2 - 25 + 50 &&
+    //   mouseIsPressed
+    // ) {
+    //   document.location.href = "https://robocode.ua/fest-ua";
+    //   //location.reload();
+    // }
   }
 }
 
 function reset() {
   isValid = true;
   state = 1;
-  img = loadImage("Quant-Right.png");
+  img = loadImage("images/Quant/Quant-Right.png");
   playerX = startPointX;
   playerY = startPointY;
   userWay = [];
   i = 0;
+  checkIndex = 0;
+  rightWay = true;
+}
+
+function grid() {
+  stroke(170);
+  strokeWeight(1);
+  for (let i = 0; i <= width; i += gridStep) {
+    line(i, 0, i, height);
+  }
+  for (let i = 0; i <= height; i += gridStep) {
+    line(0, i, width, i);
+  }
 }
 
 function checkRightWay() {
-  if (userWay[checkIndex] == mainWay[variant - 1][checkIndex]) {
-    checkIndex++;
+  if (userWay[checkIndex] === mainWay[variant - 1][checkIndex]) {
+    // console.log(
+    //   `User: ${userWay[checkIndex]}, Game: ${mainWay[variant - 1][checkIndex]}`
+    // );
+    checkIndex += 2;
   } else {
-    state == 3;
+    // console.log(
+    //   `User: ${userWay[checkIndex]}, Game: ${mainWay[variant - 1][checkIndex]}`
+    // );
+    state = 3;
   }
 }
 
@@ -367,9 +429,9 @@ function userWayToPath(startX, startY, userWayOut) {
       continue;
     }
 
-    for (let j = 0; j < steps * gridStep; j += 1) {
-      addedX += 1 * dirX;
-      addedY += 1 * dirY;
+    for (let j = 0; j < steps * gridStep; j += 3) {
+      addedX += 3 * dirX;
+      addedY += 3 * dirY;
       pathX.push(Math.round(addedX));
       pathY.push(Math.round(addedY));
     }
@@ -381,7 +443,7 @@ function userWayToPath(startX, startY, userWayOut) {
 }
 
 window.addEventListener("resize", () => {
-  location.reload();
+  if (window.innerWidth > 500) location.reload();
 });
 
 startButton.addEventListener("click", () => {
@@ -389,34 +451,92 @@ startButton.addEventListener("click", () => {
     let instructions = document.querySelectorAll(".instruction");
 
     instructions.forEach((element) => {
-      let command = element.children[0].value + " " + element.children[1].value;
+      let command =
+        element.children[0].value.trim() +
+        " " +
+        element.children[1].value.trim();
       userWay.push(command);
     });
 
     console.log(userWay);
+    console.log(mainWay[variant - 1]);
 
     userWays = userWayToPath(startPointX, startPointY, userWay);
+
+    equalsWays(userWay, mainWay[variant - 1]);
+    console.log(rightWay);
 
     state = 2;
   }
 });
 
+function equalsWays(user, game) {
+  if (user.length != game.length) {
+    console.log("Different length");
+    rightWay = false;
+  } else {
+    for (let i = 0; i < user.length; i++) {
+      if (user[i] != game[i]) {
+        console.log(
+          `User command: ${user[i]}, Game command: ${game[i]}, index: ${i}`
+        );
+        rightWay = false;
+      }
+    }
+  }
+}
+
 $(document).ready(function () {
   $("#add").click(function () {
     $(".editor .commands").append(`<div class="instruction">
-                            <input type="text" class="command" placeholder="КОМАНДА" />
-                            <input type="text" class="steps" placeholder="КРОКИ" />
-                            <div class="del"></div>
-                          </div>`);
+    <input
+      type="text"
+      class="command"
+      placeholder="КОМАНДА"
+      pattern="forward|turnDown|turnUp|turnRight|turnLeft"
+      required
+      onchange="trimCommand(this)"
+    />
+    <input type="number" class="steps" placeholder="КРОКИ" max="20" min="1" onchange="checkSteps(this)" required/>
+
+    <div class="del"></div>
+  </div>`);
   });
   $("html").on("click", ".del", function () {
     $(this.parentElement).remove();
   });
 
   $("#add").mouseover(function () {
-    $("#add").attr("src", "add_button_hover.svg");
+    $("#add").attr("src", "images/add_button_hover.svg");
   });
   $("#add").mouseout(function () {
-    $("#add").attr("src", "add_button.svg");
+    $("#add").attr("src", "images/add_button.svg");
   });
 });
+
+function checkSteps(element) {
+  neir = element.previousElementSibling.value;
+  if (
+    neir === "turnRight" ||
+    neir === "turnLeft" ||
+    neir === "turnUp" ||
+    neir === "turnDown"
+  ) {
+    element.min = 1;
+    element.max = 1;
+  } else {
+    element.min = 2;
+    element.max = 20;
+  }
+
+  if (element.value > 20) {
+    element.value = 20;
+  } else if (element.value < 1) {
+    element.value = 1;
+  }
+}
+
+function trimCommand(element) {
+  console.log("qwery");
+  element.value = element.value.trim();
+}

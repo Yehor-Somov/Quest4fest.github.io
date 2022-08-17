@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N4D9E718TT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N4D9E718TT');
+    </script>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -12,30 +21,32 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js.js" defer></script>
-    <title>Document</title>
+    <title>Robocode Quest</title>
   </head>
   <body>
     <header>
       <a href="index.html">
-        <img src="logo.svg" alt="Логотип" />
+        <img src="images/logo.svg" alt="Логотип" />
       </a>
     </header>
     <div class="container">
       <div class="userArea">
         <div class="rules">
-          <p>Ласкаво просимо до Robocode Fest Quest.</p> <br>
+          <p>Ласкаво просимо до Robocode Quest.</p> <br>
           <p> Гра, в якій тобі потрібно
           допомогти Робокотику на кванті проїхати трасу від початку до кінця.</p> <br>
           
           <p> Для керування квантом доступні наступні команди: 
             <ul>
               <li><b>forward</b> - дозволяє кванту їхати вперед, в залежності від того, куди він повернутий</li>
-              <li><b>turnRight</b> - повертає квант праворуч</li>
-              <li><b>turnLeft</b> - повертає квант ліворуч</li>
-              <li><b>turnUp</b> - повертає квант вгору</li>
-              <li><b>turnDown</b> - повертає квант вниз</li>
+              <li><b>turnRight</b> - повертає квант у напрямку праворуч</li>
+              <li><b>turnLeft</b> - повертає квант у напрямку ліворуч</li>
+              <li><b>turnUp</b> - повертає квант у напрямку вгору</li>
+              <li><b>turnDown</b> - повертає квант у напрямку вниз</li>
             </ul> 
           </p>
+          <br>
+          <p><i>Для команд з поворотом кількість кроків повинна дорівнювати одиниці (1)</i></p>
         </div>
 
         <div class="editor">
@@ -46,8 +57,11 @@
                 class="command"
                 placeholder="КОМАНДА"
                 pattern="forward|turnDown|turnUp|turnRight|turnLeft"
+                required
+                onchange="trimCommand(this)"
               />
-              <input type="number" class="steps" placeholder="КРОКИ" max="20" min="1" />
+              <input type="number" class="steps" placeholder="КРОКИ" max="20" min="1" onchange="checkSteps(this)"
+              required/>
               <!-- <input type="button" class="del" value="" /> -->
               <div class="del"></div>
             </div>
@@ -61,8 +75,8 @@
               </p>
 
               <div class="localContainer">
-                <img src="arrow.svg" alt="Стрілка" />
-                <img src="add_button.svg" alt="Додати команду" id="add" />
+                <img src="images/arrow.svg" alt="Стрілка" />
+                <img src="images/add_button.svg" alt="Додати команду" id="add" />
               </div>
             </div>
 
@@ -76,14 +90,14 @@
 
     <footer>
       <div class="socials">
-        <a href=""><img src="socials/youtube.svg" /></a>
-        <a href=""><img src="socials/instagram.svg" /></a>
-        <a href=""><img src="socials/facebook.svg" /></a>
-        <a href=""><img src="socials/tiktok.svg" /></a>
-        <a href=""><img src="socials/telegram.svg" /></a>
+        <a href="https://www.youtube.com/channel/UCnrQ113OjfXe8T2zuDvRmrw/featured"><img src="images/socials/youtube.svg" /></a>
+        <a href="https://www.instagram.com/robocodepro/"><img src="images/socials/instagram.svg" /></a>
+        <a href="https://www.facebook.com/robocodepro?roistat_visit=20649"><img src="images/socials/facebook.svg" /></a>
+        <a href="https://www.tiktok.com/@robocodepro?lang=ru-RU"><img src="images/socials/tiktok.svg" /></a>
+        <a href="https://t.me/robocodepro"><img src="images/socials/telegram.svg" /></a>
       </div>
-      <a href="">
-        <img src="logo.svg" alt="" />
+      <a href="https://robocode.ua/">
+        <img src="images/logo.svg" alt="" />
       </a>
     </footer>
   </body>
