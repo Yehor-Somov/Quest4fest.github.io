@@ -1,7 +1,6 @@
 let variant = Math.floor(Math.random() * 5 + 1);
-//variant = 5;
 
-isValid = true;
+let isValid = true;
 
 let gridStep;
 
@@ -36,158 +35,9 @@ let state = 1;
 let startPointX;
 let startPointY;
 
-let way1 = [
-  "forward 6",
-  "turnDown 1",
-  "forward 6",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 6",
-  "turnDown 1",
-  "forward 8",
-  "turnLeft 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 2",
-  "turnLeft 1",
-  "forward 4",
-  "turnDown 1",
-  "forward 4",
-  "turnLeft 1",
-  "forward 6",
-  "turnUp 1",
-  "forward 4",
-  "turnLeft 1",
-  "forward 2",
-];
-let way2 = [
-  "forward 14",
-  "turnDown 1",
-  "forward 4",
-  "turnLeft 1",
-  "forward 12",
-  "turnDown 1",
-  "forward 10",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 4",
-  "turnRight 1",
-  "forward 4",
-  "turnDown 1",
-  "forward 4",
-  "turnRight 1",
-  "forward 6",
-  "turnUp 1",
-  "forward 14",
-  "turnRight 1",
-  "forward 2",
-];
-let way3 = [
-  "forward 6",
-  "turnDown 1",
-  "forward 6",
-  "turnLeft 1",
-  "forward 4",
-  "turnDown 1",
-  "forward 8",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 4",
-  "turnRight 1",
-  "forward 2",
-  "turnUp 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 2",
-  "turnUp 1",
-  "forward 6",
-  "turnRight 1",
-  "forward 2",
-  "turnDown 1",
-  "forward 10",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 12",
-  "turnRight 1",
-  "forward 2",
-];
-let way4 = [
-  "forward 4",
-  "turnDown 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 2",
-  "turnDown 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 6",
-  "turnDown 1",
-  "forward 10",
-  "turnLeft 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 2",
-  "turnLeft 1",
-  "forward 4",
-  "turnDown 1",
-  "forward 4",
-  "turnLeft 1",
-  "forward 6",
-  "turnUp 1",
-  "forward 2",
-  "turnLeft 1",
-  "forward 2",
-];
-let way5 = [
-  "forward 2",
-  "turnDown 1",
-  "forward 6",
-  "turnRight 1",
-  "forward 4",
-  "turnDown 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 4",
-  "turnUp 1",
-  "forward 8",
-  "turnRight 1",
-  "forward 6",
-  "turnDown 1",
-  "forward 8",
-  "turnLeft 1",
-  "forward 2",
-  "turnDown 1",
-  "forward 4",
-  "turnLeft 1",
-  "forward 12",
-  "turnDown 1",
-  "forward 2",
-  "turnRight 1",
-  "forward 16",
-];
-
-let mainWay = [];
-
-mainWay.push(way1);
-mainWay.push(way2);
-mainWay.push(way3);
-mainWay.push(way4);
-mainWay.push(way5);
-
 let checkIndex = 0;
 
 function preload() {
-  //img = loadImage("images/Quant/Quant-Right.png");
   game_map = loadImage(`images/maps/${variant}.svg`);
   Inter = loadFont("fonts/Inter.ttf");
   imgRight = loadImage("images/Quant/Quant-Right.png");
@@ -254,8 +104,6 @@ function draw() {
     i++;
 
     if (i > userWays[0].length) {
-      // console.log(userWay);
-      // console.log(mainWay[variant - 1]);
       if (!rightWay) {
         isValid = false;
         state = 3;
@@ -324,33 +172,6 @@ function draw() {
 
     textSize(20);
     text("А тепер дивись, що відбудеться :)", width / 2, height / 2 - 80);
-    //text("з інформацією про фест", width / 2, height / 2 - 50);
-
-    //rect(width / 2 - 100, height / 2 - 25, 200, 50, 20);
-
-    //textSize(24);
-    //fill("rgb(0,0,0)");
-    //text("Про Фест", width / 2, height / 2 + 8);
-
-    // if (
-    //   mouseX > width / 2 - 100 &&
-    //   mouseX < width / 2 - 100 + 200 &&
-    //   mouseY > height / 2 - 25 &&
-    //   mouseY < height / 2 - 25 + 50
-    // ) {
-    //   document.querySelector("canvas").style.cursor = "pointer";
-    // } else document.querySelector("canvas").style.cursor = "default";
-
-    // if (
-    //   mouseX > width / 2 - 100 &&
-    //   mouseX < width / 2 - 100 + 200 &&
-    //   mouseY > height / 2 - 25 &&
-    //   mouseY < height / 2 - 25 + 50 &&
-    //   mouseIsPressed
-    // ) {
-    //   document.location.href = "https://robocode.ua/fest-ua";
-    //   //location.reload();
-    // }
   }
 }
 
@@ -379,14 +200,8 @@ function grid() {
 
 function checkRightWay() {
   if (userWay[checkIndex] === mainWay[variant - 1][checkIndex]) {
-    // console.log(
-    //   `User: ${userWay[checkIndex]}, Game: ${mainWay[variant - 1][checkIndex]}`
-    // );
     checkIndex += 2;
   } else {
-    // console.log(
-    //   `User: ${userWay[checkIndex]}, Game: ${mainWay[variant - 1][checkIndex]}`
-    // );
     state = 3;
   }
 }
@@ -502,6 +317,7 @@ $(document).ready(function () {
     <div class="del"></div>
   </div>`);
   });
+
   $("html").on("click", ".del", function () {
     $(this.parentElement).remove();
   });
@@ -513,30 +329,3 @@ $(document).ready(function () {
     $("#add").attr("src", "images/add_button.svg");
   });
 });
-
-function checkSteps(element) {
-  neir = element.previousElementSibling.value;
-  if (
-    neir === "turnRight" ||
-    neir === "turnLeft" ||
-    neir === "turnUp" ||
-    neir === "turnDown"
-  ) {
-    element.min = 1;
-    element.max = 1;
-  } else {
-    element.min = 2;
-    element.max = 20;
-  }
-
-  if (element.value > 20) {
-    element.value = 20;
-  } else if (element.value < 1) {
-    element.value = 1;
-  }
-}
-
-function trimCommand(element) {
-  console.log("qwery");
-  element.value = element.value.trim();
-}
