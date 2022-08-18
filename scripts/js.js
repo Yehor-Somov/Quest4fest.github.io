@@ -273,13 +273,13 @@ startButton.addEventListener("click", () => {
       userWay.push(command);
     });
 
-    console.log(userWay);
-    console.log(mainWay[variant - 1]);
+    // console.log(userWay);
+    // console.log(mainWay[variant - 1]);
 
     userWays = userWayToPath(startPointX, startPointY, userWay);
 
     equalsWays(userWay, mainWay[variant - 1]);
-    console.log(rightWay);
+    // console.log(rightWay);
 
     state = 2;
   }
