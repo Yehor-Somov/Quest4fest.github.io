@@ -300,32 +300,3 @@ function equalsWays(user, game) {
     }
   }
 }
-
-$(document).ready(function () {
-  $("#add").click(function () {
-    $(".editor .commands").append(`<div class="instruction">
-    <input
-      type="text"
-      class="command"
-      placeholder="КОМАНДА"
-      pattern="forward|turnDown|turnUp|turnRight|turnLeft"
-      required
-      onchange="trimCommand(this)"
-    />
-    <input type="number" class="steps" placeholder="КРОКИ" max="20" min="1" onchange="checkSteps(this)" required/>
-
-    <div class="del"></div>
-  </div>`);
-  });
-
-  $("html").on("click", ".del", function () {
-    $(this.parentElement).remove();
-  });
-
-  $("#add").mouseover(function () {
-    $("#add").attr("src", "images/add_button_hover.svg");
-  });
-  $("#add").mouseout(function () {
-    $("#add").attr("src", "images/add_button.svg");
-  });
-});
